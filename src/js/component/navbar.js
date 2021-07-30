@@ -1,10 +1,15 @@
-import React, { Image } from "react";
+import React, { Image, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import starwarsimage from "../../img/star-wars-logo-icon-8.jpg";
+import { Context } from "../store/appContext";
+import { PropTypes } from "prop-types";
 
 // const drop
 
-export const Navbar = () => {
+export const Navbar = props => {
+	const { store } = useContext(Context);
+	// const { currentFavorites, newFavorites } = useState(store.favorites);
+
 	return (
 		<nav className="navbar navbar-light bg-light mb-3">
 			{/* <Link to="/"> */}
@@ -31,16 +36,14 @@ export const Navbar = () => {
 				data-toggle="dropdown float-right"
 				aria-haspopup="true"
 				aria-expanded="false">
-				<div className="">
-					<a className="dropdown-item" href="#">
-						Action
-					</a>
-					<a className="dropdown-item" href="#">
-						Another action
-					</a>
-					<a className="dropdown-item" href="#">
-						Something else here
-					</a>
+				<div className="favorites-list">
+					{store.favorites.map((item, index) => {
+						return (
+							<a className="dropdown-item" href="#" key={index}>
+								{item.name}
+							</a>
+						);
+					})}
 				</div>
 			</div>
 			{/* </ul> */}
@@ -48,4 +51,8 @@ export const Navbar = () => {
 			{/* </Link> */}
 		</nav>
 	);
+};
+
+Navbar.propTypes = {
+	name: PropTypes.string
 };

@@ -47,19 +47,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			addFavorites: onclickObj => {
 				const store = getStore();
-				const array = store.favorites;
+				let array = store.favorites;
 				// EXAMPLE OF HOW TO GET TRUE //
 				// const resFindSearch1 = !!listOfObjecs.find(item => JSON.stringify(item) === JSON.stringify(search1));
 				// const isFavorite = onclickObj => {
-				const isFavorite = !!store.favorites.find(item => JSON.stringify(item) === JSON.stringify(onclickObj));
-
-				console.log(isFavorite);
+				const isFavorite = !!array.find(item => JSON.stringify(item) === JSON.stringify(onclickObj));
 
 				const favoriteIndex = array.findIndex(function(array) {
 					return array.name === onclickObj.name;
 				});
-				console.log("This is the favorite index: ", favoriteIndex);
-				console.log("This is the onclickObj: ", onclickObj);
+				// console.log("This is the favorite index: ", favoriteIndex);
+				// console.log("This is the onclickObj: ", onclickObj);
+
+				if (isFavorite) {
+					array.splice(favoriteIndex, 1);
+				} else array.push(onclickObj);
+
+				console.log(array);
+				setStore(array);
 			}
 		},
 
