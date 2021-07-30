@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import "../../styles/home.scss";
 import { Context } from "../store/appContext";
-import { CharacterRow } from "../component/cardrows.js";
-import { CharacterCard } from "../component/charactercard.js";
+import { CharacterRow, PlanetRow } from "../component/cardrows.js";
+import { Demo } from "./demo.js";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -13,6 +13,11 @@ export const Home = () => {
 				<div className="cardrow m-2">
 					<div className="text-center mt-5 ">
 						<CharacterRow />
+					</div>
+				</div>
+				<div className="cardrow m-2">
+					<div className="text-center mt-5 ">
+						<PlanetRow />
 					</div>
 				</div>
 			</div>

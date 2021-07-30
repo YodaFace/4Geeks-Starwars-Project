@@ -5,7 +5,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			characters: [],
 			planets: [],
 			vehicles: [],
-			favorites: [],
+			favorites: [
+				{ index: 0, name: "Luke Skywalker" },
+				{ index: 2, name: "R2-D2" },
+				{ index: 0, name: "Tatooine" }
+			],
 			demo: []
 		},
 		actions: {
@@ -26,13 +30,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log(error);
 				}
-				console.log(store.characters);
+				// console.log(store.characters);
 				// if (i === index) name = character.name;
 				// console.log(name);
-			}
+			},
+			fetchPlanetData: async () => {
+				const store = getStore();
+				try {
+					let waitForPlanets = await fetch(store.myURL + "/planets/");
+					let jsonOfPlanets = await waitForPlanets.json();
+					setStore({ planets: jsonOfPlanets.results });
+				} catch (error) {
+					console.log(error);
+				}
+				// console.log(store.planets);
+			},
+			addFavorites: onclickObj => {
+				const store = getStore();
+				const array = store.favorites;
+				// EXAMPLE OF HOW TO GET TRUE //
+				// const resFindSearch1 = !!listOfObjecs.find(item => JSON.stringify(item) === JSON.stringify(search1));
+				// const isFavorite = onclickObj => {
+				const isFavorite = !!store.favorites.find(item => JSON.stringify(item) === JSON.stringify(onclickObj));
 
-			//reset the global store
-			// setStore({ demo: demo });
+				console.log(isFavorite);
+
+				const favoriteIndex = array.findIndex(function(array) {
+					return array.name === onclickObj.name;
+				});
+				console.log("This is the favorite index: ", favoriteIndex);
+				console.log("This is the onclickObj: ", onclickObj);
+			}
 		},
 
 		// fetch(url)
